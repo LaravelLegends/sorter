@@ -23,6 +23,7 @@ class Sorter
 
     protected $index;
 
+
     public function __construct(UrlGenerator $url, $index = null)
     {
         $this->url = $url;
@@ -34,10 +35,10 @@ class Sorter
     {
         if ($path === null)
         {
-            $url = $this->url->current();
+            $path = $this->url->current();
         }
 
-        $url .= '?' . http_build_query([$this->index => $field]);
+        $url = $path . '?' . http_build_query([$this->index => $field]);
 
         return $this->url->to($url);
     }
@@ -55,7 +56,7 @@ class Sorter
     /**
      * Sets the value of direction.
      *
-     * @param mixed $direction the direction
+     * @param string $direction the direction
      *
      * @return self
      */

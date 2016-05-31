@@ -25,11 +25,17 @@ class SorterProvider extends ServiceProvider
     {
         $this->app->bind(Sorter::class, function () use ($app)
         {
-            $prefix = $app['config']->get('column-sorter::config.index');
+            $index = $app['config']->get('column-sorter::config.index');
 
-            $sorter = new Sorter($app['url'], $prefix);
+            $sorter = new Sorter($app['url'], $index);
+            
+            $directionIndex = $app['config']->get('column-sorter::config.direction_index');
 
-            $app['request']->query($index, 'asc');
+            $direction = $app['request']->query($directionIndex, 'asc');
+
+            $sorter->setDirection($direction);
+
+            return $sorter;
 
         });
     }

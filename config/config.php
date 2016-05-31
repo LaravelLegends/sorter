@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'index' => '_sort_by'
+    'index'           => '_sort_by',
+    'direction_index' => '_direction'
 ];
