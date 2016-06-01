@@ -10,12 +10,17 @@
         }
     ],
     "require": {
-       
+       "illuminate/http" : "4.2.*",
+       "illuminate/html" : "4.2.*",
+       "illuminate/routing" : "4.2.*"
     },
 
     "autoload" : {
         "psr-4" : {
             "LaravelLegends\\Sorter\\" : "src/"
         }
+    },
+    "require-dev": {
+        "mockery/mockery": "~0.9"
     }
 }
