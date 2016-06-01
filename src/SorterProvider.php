@@ -3,7 +3,6 @@
 namespace LaravelLegends\Sorter;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
 
 class SorterProvider extends ServiceProvider
