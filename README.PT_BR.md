@@ -9,7 +9,7 @@ O uso da mesma se dá da seguinte forma:
 
 ```json
 {
-     "laravellegends/sorter-laravel" : "5.2.*"
+     "laravellegends/sorter" : "5.2.*"
 }
 ```
 
