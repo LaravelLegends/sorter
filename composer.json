@@ -1,5 +1,5 @@
 {
-    "name": "phplegends/sorter-laravel",
+    "name": "laravellegends/sorter",
     "description": "A package for easy sorter colums with links for Laravel",
     "type": "MIT",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "require": {
         "psr-4" : {
-            "PHPLegends\\SorterLaravel\\" : "src/"
+            "LaravelLegends\\Sorter\\" : "src/"
         }
     }
 }

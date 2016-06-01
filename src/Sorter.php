@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPLegends\SorterLaravel;
+namespace LaravelLegends\Sorter;
 
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Http\Request;
 use Collective\Html\HtmlBuilder;
+use Illuminate\Routing\UrlGenerator;
 
 class Sorter
 {

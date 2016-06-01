@@ -1,10 +1,10 @@
 <?php
 
-namespace PHPLegends\SorterLaravel;
+namespace LaravelLegends\Sorter;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\ServiceProvider;
 
 class SorterProvider extends ServiceProvider
 {

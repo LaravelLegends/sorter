@@ -1,4 +1,4 @@
-#PHPLegends\SorterLaravel
+#LaravelLegends\Sorter
 
 É uma biblioteca criada para facilitar a ordenação dos de uma tabela ao clicar no link. Essa biblioteca funciona perfeitamente em Laravel 5.
 
@@ -9,7 +9,7 @@ O uso da mesma se dá da seguinte forma:
 
 ```json
 {
-     "phplegends/sorter-laravel" : "1.*"
+     "laravellegends/sorter-laravel" : "1.*"
 }
 ```
 
@@ -23,14 +23,14 @@ Após isso, adicione os seguintes Services Provides e Facade:
 'providers' => [
      // ....
 
-     PHPLegends\SorterLaravel\SorterProvider::class,
+     LaravelLegends\Sorter\SorterProvider::class,
 ]
 
 
 
 'aliases' = [
 
-     'Sorter'  => PHPLegends\SorterLaravel\Facade::class,
+     'Sorter'  => LaravelLegends\Sorter\Facade::class,
 ]
 ```
 

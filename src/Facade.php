@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPLegends\SorterLaravel;
+namespace LaravelLegends\Sorter;
 
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
