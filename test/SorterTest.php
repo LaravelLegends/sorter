@@ -4,8 +4,6 @@ use LaravelLegends\Sorter\Sorter;
 use Illuminate\View\Factory;
 use Illuminate\Http\Request;
 
-use Mockery as m;
-
 class SorterTest extends PHPUnit_Framework_Testcase
 {
     public function setUp()
@@ -20,12 +18,7 @@ class SorterTest extends PHPUnit_Framework_Testcase
             $this->request
         );
 
-        $this->viewFactory = m::mock('\Illuminate\View\Factory');
-
-        $this->html = new Illuminate\Html\HtmlBuilder(
-            $this->url, 
-            $this->viewFactory
-        );
+        $this->html = new Illuminate\Html\HtmlBuilder($this->url);
 
         $this->sorter = new Sorter(
             $this->url,
