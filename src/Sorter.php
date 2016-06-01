@@ -3,7 +3,7 @@
 namespace LaravelLegends\Sorter;
 
 use Illuminate\Http\Request;
-use Collective\Html\HtmlBuilder;
+use Illuminate\Html\HtmlBuilder;
 use Illuminate\Routing\UrlGenerator;
 
 class Sorter
@@ -47,15 +47,25 @@ class Sorter
      * @param string $directionIndex
      * 
      * */
-    public function __construct(UrlGenerator $url, HtmlBuilder $html, $fieldIndex, $directionIndex)
+    public function __construct(UrlGenerator $url, HtmlBuilder $html, Request $request, $fieldIndex, $directionIndex)
     {
         $this->url = $url;
 
         $this->html = $html;
 
+        $this->request = $request;
+
         $this->setFieldIndex($fieldIndex);
 
         $this->setDirectionIndex($directionIndex);
+
+        $this->setCurrentField(
+            $request->query($this->getFieldIndex())
+        );
+
+        $this->setDirection(
+            $request->query($this->getDirectionIndex())
+        );
     }
 
     public function url($field, $path = null)

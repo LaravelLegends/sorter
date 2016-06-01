@@ -3,7 +3,7 @@
 namespace LaravelLegends\Sorter;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
 
 class SorterProvider extends ServiceProvider
@@ -16,11 +16,7 @@ class SorterProvider extends ServiceProvider
     public function boot()
     {   
 
-        $this->registryMacros();
-
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('laravel-sorter.php'),
-        ], 'config');
+        $this->app['config']->package('laravellegends/sorter', __DIR__ . '/../config');
        
     }
 
@@ -32,51 +28,16 @@ class SorterProvider extends ServiceProvider
     public function register()
     {
 
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
-            'laravel-sorter'
-        );
-
         $app = $this->app;
 
-        $this->app->bind(Sorter::class, function ($app) {
+        $this->app->bind('sorter', function ($app) {
 
-            $index = config('laravel-sorter.index');
+            $index = $app['config']->get('sorter::index');
             
-            $directionIndex = config('laravel-sorter.direction_index');
+            $directionIndex = $app['config']->get('sorter::direction_index');
 
-            $sorter = new Sorter($app['url'], $app['html'], $index, $directionIndex);
-            
-            $sorter->setDirection(
-                request($sorter->getDirectionIndex())
-            );
-
-            $sorter->setCurrentField(
-                request($sorter->getFieldIndex())
-            );
-
-            return $sorter;
-
+            return new Sorter($app['url'], $app['html'], $app['request'], $index, $directionIndex);
         });
 
-    }
-
-    protected function registryMacros()
-    {
-        $app = $this->app;
-
-        Builder::macro('orderBySorter', function (array $acceptedFields = []) use($app)
-        {
-            $sorter = $app[Sorter::class];
-
-            $field = $sorter->getCurrentField();
-
-            if ($field && $sorter->acceptedField($acceptedFields))
-            {
-                $this->orderBy($field, $sorter->getDirection());
-            }
-
-            return $this;
-        });
     }
 }

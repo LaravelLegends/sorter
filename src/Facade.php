@@ -20,6 +20,6 @@ class Facade extends BaseFacade
      */
     protected static function getFacadeAccessor()
     {
-        return Sorter::class;
+        return 'sorter';
     }
 }
