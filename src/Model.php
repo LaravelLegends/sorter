@@ -10,8 +10,7 @@ class Model extends Eloquent
 {
 
     /**
-     * 
-     * 
+     * Method for create "order by" with Url
      * 
      * @param Illuminate\Database\Query\Builder $query
      * @param array $acceptedFields
