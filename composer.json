@@ -1,7 +1,6 @@
 {
     "name": "laravellegends/sorter",
     "description": "A package for easy sorter colums with links for Laravel",
-    "type": "MIT",
     "license": "MIT",
     "authors": [
         {
@@ -10,6 +9,10 @@
         }
     ],
     "require": {
+        "laravelcollective/html" : "5.2.*",
+        "illuminate/routing"     : "5.2.*"
+    },
+    "autoload" : {
         "psr-4" : {
             "LaravelLegends\\Sorter\\" : "src/"
         }
