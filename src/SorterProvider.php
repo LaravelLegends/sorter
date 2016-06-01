@@ -41,21 +41,13 @@ class SorterProvider extends ServiceProvider
 
         $this->app->bind(Sorter::class, function ($app) {
 
-            $index = config('laravel-sorter.index');
+            $fieldIndex = config('laravel-sorter.index');
             
             $directionIndex = config('laravel-sorter.direction_index');
 
-            $sorter = new Sorter($app['url'], $app['html'], $index, $directionIndex);
-            
-            $sorter->setDirection(
-                request($sorter->getDirectionIndex())
+            return $sorter = new Sorter(
+                $app['url'], $app['html'], $app['request'], $fieldIndex, $directionIndex
             );
-
-            $sorter->setCurrentField(
-                request($sorter->getFieldIndex())
-            );
-
-            return $sorter;
 
         });
 
@@ -71,7 +63,7 @@ class SorterProvider extends ServiceProvider
 
             $field = $sorter->getCurrentField();
 
-            if ($field && $sorter->acceptedField($acceptedFields))
+            if ($field && $sorter->checkCurrentByWhitelist($acceptedFields))
             {
                 $this->orderBy($field, $sorter->getDirection());
             }
