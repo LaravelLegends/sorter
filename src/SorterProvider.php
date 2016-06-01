@@ -36,7 +36,10 @@ class SorterProvider extends ServiceProvider
             
             $directionIndex = $app['config']->get('sorter::direction_index');
 
-            return new Sorter($app['url'], $app['html'], $app['request'], $index, $directionIndex);
+
+            return new Sorter(
+                $app['url'], $app['html'], $app['request'], $index, $directionIndex
+            );
         });
 
     }

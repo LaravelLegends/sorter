@@ -15,6 +15,20 @@ class Sorter
     protected $url;
 
     /**
+     * 
+     * @var HtmlBuilder
+     * */
+
+    protected $html;
+
+    /**
+     * 
+     * @var Request
+     * */
+
+    protected $request;
+
+    /**
      * @var string
      * */
     protected $direction;
@@ -23,32 +37,44 @@ class Sorter
      * @var string
      * */
 
-    protected $fieldIndex = '_sort';
+    protected $fieldIndex;
 
     /**
      * @var string
      * */
 
-    protected $directionIndex = '_direction';
+    protected $directionIndex;
 
     /**
      * @var array
      * */
     protected $acceptedFields = [];
 
-
+    /**
+     * @var string
+     * */
     protected $currentField;
 
 
     /**
+     * Constructs the Sorter
      * 
      * @param \Illuminate\Routing\UrlGenerator
+     * @param \Collective\Html\HtmlBuilder
+     * @param Illuminate\Http\Request
      * @param string $fieldIndex
      * @param string $directionIndex
      * 
      * */
-    public function __construct(UrlGenerator $url, HtmlBuilder $html, Request $request, $fieldIndex, $directionIndex)
-    {
+
+    public function __construct(
+        UrlGenerator $url,
+        HtmlBuilder $html,
+        Request $request,
+        $fieldIndex = '_sort',
+        $directionIndex = '_order'
+    ) {
+
         $this->url = $url;
 
         $this->html = $html;
@@ -60,14 +86,21 @@ class Sorter
         $this->setDirectionIndex($directionIndex);
 
         $this->setCurrentField(
-            $request->query($this->getFieldIndex())
+            $request->query($fieldIndex)
         );
 
         $this->setDirection(
-            $request->query($this->getDirectionIndex())
+            $request->get($directionIndex)
         );
+
     }
 
+    /**
+     * Generates a url for Sorter
+     * 
+     * @param string $field
+     * @param null|string $path
+     * */
     public function url($field, $path = null)
     {
         if ($path === null)
@@ -83,6 +116,20 @@ class Sorter
         $url = $path . '?' . http_build_query($queryString);
 
         return $this->url->to($url);
+    }
+
+    /**
+     * Sets the value of direction.
+     *
+     * @param string $direction the direction
+     *
+     * @return self
+     */
+    public function setDirection($direction)
+    {
+        $this->direction = $direction;
+
+        return $this;
     }
 
     /**
@@ -110,21 +157,7 @@ class Sorter
 
         return 'asc';
     }
-
-
-    /**
-     * Sets the value of direction.
-     *
-     * @param string $direction the direction
-     *
-     * @return self
-     */
-    public function setDirection($direction)
-    {
-        $this->direction = $direction;
-
-        return $this;
-    }
+   
 
     /**
      * Sets the value of currentField.
@@ -153,10 +186,12 @@ class Sorter
 
     /**
      * 
+     * Check if current field exists in whitelist. If whitelist is empty, is ok
+     * 
      * @param string $field
      * @return boolean
      * */
-    public function acceptedField(array $acceptedFields)
+    public function checkCurrentByWhitelist(array $acceptedFields)
     {
         return empty($acceptedFields) || in_array($this->currentField, $acceptedFields, true);
     }
