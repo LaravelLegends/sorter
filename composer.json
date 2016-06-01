@@ -1,0 +1,18 @@
+{
+    "name": "phplegends/laravel-sorter",
+    "description": "A package for easy sorter colums with links for Laravel",
+    "type": "MIT",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wallace de Souza Vizerra",
+            "email": "wallacemaxters@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "psr-4" : {
+            "PHPLegends\\SorterLaravel\\" : "src/"
+        }
+    }
+}
