@@ -1,7 +1,7 @@
 <?php
 
 use LaravelLegends\Sorter\Sorter;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\View\Factory;
 use Illuminate\Http\Request;
 
 use Mockery as m;
@@ -20,7 +20,7 @@ class SorterTest extends PHPUnit_Framework_Testcase
             $this->request
         );
 
-        $this->viewFactory = m::mock(Factory::class);
+        $this->viewFactory = m::mock('\Illuminate\View\Factory');
 
         $this->html = new Illuminate\Html\HtmlBuilder(
             $this->url, 
