@@ -18,10 +18,7 @@ class SorterProvider extends ServiceProvider
 
         $this->registryMacros();
 
-        $this->publishes([
-            __DIR__.'/../config/config.php' => config_path('laravel-sorter.php'),
-        ], 'config');
-       
+        $this->package('laravellegends/sorter');
     }
 
     /**
@@ -31,11 +28,6 @@ class SorterProvider extends ServiceProvider
      */
     public function register()
     {
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
-            'laravel-sorter'
-        );
 
         $app = $this->app;
 
@@ -47,14 +39,6 @@ class SorterProvider extends ServiceProvider
 
             $sorter = new Sorter($app['url'], $app['html'], $index, $directionIndex);
             
-            $sorter->setDirection(
-                request($sorter->getDirectionIndex())
-            );
-
-            $sorter->setCurrentField(
-                request($sorter->getFieldIndex())
-            );
-
             return $sorter;
 
         });
