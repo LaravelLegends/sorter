@@ -86,4 +86,20 @@ class SorterTest extends PHPUnit_Framework_Testcase
         $this->assertEquals('__order__', $this->sorter->getDirectionIndex());
     }
 
+    public function testIsActive()
+    {
+        $this->assertTrue($this->sorter->isActive());
+
+        $another = clone $this->sorter;
+
+
+        $another->setDirectionIndex('another_index');
+
+        $another->setFieldIndex('another_field');
+
+
+        // check if sorter is active  (query contains expected values)
+        $this->assertFalse($another->isActive());
+    }
+
 }

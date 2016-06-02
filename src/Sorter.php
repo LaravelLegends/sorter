@@ -141,9 +141,10 @@ class Sorter
     }
 
     /**
+     * Returns'asc' or 'desc' according with passed field
      * 
      * @param string $field
-     * @return string
+     * @return string ('asc' or 'desc')
      * */
 
     public function getConditionallyDirection($field)
@@ -172,6 +173,7 @@ class Sorter
     }
 
     /**
+     * Returns the current sorting field
      * 
      * @param Request $request
      * @return null|string
@@ -197,7 +199,7 @@ class Sorter
     /**
      * Gets the value of directionIndex.
      *
-     * @return mixed
+     * @return string
      */
     public function getDirectionIndex()
     {
@@ -221,7 +223,7 @@ class Sorter
     /**
      * Gets the value of FieldIndex.
      *
-     * @return mixed
+     * @return string
      */
     public function getFieldIndex()
     {
@@ -265,4 +267,13 @@ class Sorter
         return $this->html->link($this->url($field, $path), $name, $attributes);
     }
 
+    /**
+     * Checks if "sorter" order is currently active
+     * 
+     * @return boolean
+     * */
+    public function isActive()
+    {
+        return $this->request->has($this->getFieldIndex(), $this->getDirectionIndex());
+    }
 }
