@@ -1,10 +1,10 @@
 <?php
 
+use Mockery as m;
+use Illuminate\Http\Request;
 use LaravelLegends\Sorter\Sorter;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
-
-use Mockery as m;
+use Illuminate\Database\Eloquent\Model;
 
 class SorterTest extends PHPUnit_Framework_Testcase
 {
