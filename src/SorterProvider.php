@@ -53,20 +53,28 @@ class SorterProvider extends ServiceProvider
 
     }
 
+    /**
+     * Registry a macro for Builder
+     * 
+     * */
     protected function registryMacros()
     {
-        $app = $this->app;
+        $sorter = $this->app[Sorter::class];
 
-        Builder::macro('orderBySorter', function (array $acceptedFields = []) use($app)
-        {
-            $sorter = $app[Sorter::class];
+        Builder::macro('orderBySorter', function (array $whiteList = []) use ($sorter) {
 
             $field = $sorter->getCurrentField();
 
-            if ($field && $sorter->checkCurrentByWhitelist($acceptedFields))
-            {
-                $this->orderBy($field, $sorter->getDirection());
+            if (! $field) return $this;
+
+            if (! $sorter->checkCurrentByWhitelist($whiteList)) {
+
+                $message = "Field '{$field}' is not defined in whitelist";
+
+                throw new \UnexpectedValueException($message);
             }
+
+            $this->orderBy($field, $sorter->getDirection());
 
             return $this;
         });
