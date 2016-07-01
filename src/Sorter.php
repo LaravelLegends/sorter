@@ -10,19 +10,19 @@ class Sorter
 {
 
     /**
-     * @var UrlGenerator 
+     * @var UrlGenerator
      * */
     protected $url;
 
     /**
-     * 
+     *
      * @var HtmlBuilder
      * */
 
     protected $html;
 
     /**
-     * 
+     *
      * @var Request
      * */
 
@@ -58,13 +58,13 @@ class Sorter
 
     /**
      * Constructs the Sorter
-     * 
+     *
      * @param \Illuminate\Routing\UrlGenerator
      * @param \Collective\Html\HtmlBuilder
      * @param Illuminate\Http\Request
      * @param string $fieldIndex
      * @param string $directionIndex
-     * 
+     *
      * */
     public function __construct(
         UrlGenerator $url,
@@ -95,11 +95,12 @@ class Sorter
 
     /**
      * Generates a url for Sorter
-     * 
+     *
      * @param string $field
      * @param null|string $path
+     * @param boolean $appends
      * */
-    public function url($field, $path = null)
+    public function url($field, $path = null, $appends = true)
     {
         if ($path === null)
         {
@@ -110,6 +111,8 @@ class Sorter
             $this->getFieldIndex()     => $field,
             $this->getDirectionIndex() => $this->getConditionallyDirection($field)
         ];
+
+        $appends && $queryString += $this->request->query();
 
         $url = $path . '?' . http_build_query($queryString);
 
@@ -142,7 +145,7 @@ class Sorter
 
     /**
      * Returns'asc' or 'desc' according with passed field
-     * 
+     *
      * @param string $field
      * @return string ('asc' or 'desc')
      * */
@@ -156,7 +159,7 @@ class Sorter
 
         return 'asc';
     }
-   
+
 
     /**
      * Sets the value of currentField.
@@ -174,7 +177,7 @@ class Sorter
 
     /**
      * Returns the current sorting field
-     * 
+     *
      * @param Request $request
      * @return null|string
      * */
@@ -185,9 +188,9 @@ class Sorter
     }
 
     /**
-     * 
+     *
      * Check if current field exists in whitelist. If whitelist is empty, is ok
-     * 
+     *
      * @param string $field
      * @return boolean
      * */
@@ -246,12 +249,12 @@ class Sorter
 
     /**
      * Generates a link for sor url
-     * 
+     *
      * @param string $field
      * @param string|null $name
      * @param array $attributes
      * @param string|null $path
-     * 
+     *
     */
     public function link($field, $name = null, array $attributes = [], $path = null)
     {
@@ -269,7 +272,7 @@ class Sorter
 
     /**
      * Checks if "sorter" order is currently active
-     * 
+     *
      * @return boolean
      * */
     public function isActive()
