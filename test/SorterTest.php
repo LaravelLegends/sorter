@@ -12,7 +12,7 @@ class SorterTest extends PHPUnit_Framework_Testcase
     {
 
         $this->request = Request::create(
-            '/foo', 'GET', ['__order__' => 'asc', '__sort__' => 'id']
+            '/foo', 'GET', ['__order__' => 'asc', '__sort__' => 'id', 'another' => 1]
         );
 
         $this->url = new Illuminate\Routing\UrlGenerator(
@@ -23,7 +23,7 @@ class SorterTest extends PHPUnit_Framework_Testcase
         $this->viewFactory = m::mock(Factory::class);
 
         $this->html = new Collective\Html\HtmlBuilder(
-            $this->url, 
+            $this->url,
             $this->viewFactory
         );
 
@@ -40,7 +40,7 @@ class SorterTest extends PHPUnit_Framework_Testcase
     {
         $this->assertEquals(
             'http://localhost/path?__sort__=name&__order__=asc',
-            $this->sorter->url('name', '/path')
+            $this->sorter->url('name', '/path', false)
         );
     }
 
@@ -52,11 +52,12 @@ class SorterTest extends PHPUnit_Framework_Testcase
 
         $this->assertEquals(
             'http://localhost/path?__sort__=name&__order__=asc',
-            $this->sorter->url('name', '/path')
+            $this->sorter->url('name', '/path', false)
         );
 
+        // With appends
         $this->assertEquals(
-            'http://localhost/path?__sort__=id&__order__=desc',
+            'http://localhost/path?__sort__=id&__order__=desc&another=1',
             $this->sorter->url('id', '/path')
         );
     }
